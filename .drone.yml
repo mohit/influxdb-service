@@ -1,4 +1,4 @@
-image: google/debian:wheezy
+image: bradrydzewski/base
 notify:
   email:
     recipients:
@@ -18,4 +18,4 @@ publish:
       branch: master
 script:
 # no tests here
-- return 0
+  - echo "no tests here"
