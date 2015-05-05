@@ -1,0 +1,10 @@
+run:
+  type: docker
+env:
+  - PRE_CREATE_DB
+resources:
+  cpu: 2
+  max_mem: 7
+volumes:
+  - source: /influx-data
+    target: /data
