@@ -18,3 +18,7 @@ expose:
     port: 99    # port to map to inside the container
     bind: 8099  # port to bind the reverse proxy to (for the world)
     proto: tcp
+  - name: raft  # identifier for this port mapping
+    port: 90    # port to map to inside the container
+    bind: 8090  # port to bind the reverse proxy to (for the world)
+    proto: tcp
