@@ -1,24 +1,27 @@
 run:
   type: docker
 env:
-  - PRE_CREATE_DB
+- PRE_CREATE_DB
 resources:
   cpu: 4
 volumes:
-  - source: /influx-data
-    target: /data
+- source: /influx-data
+  target: /data
 expose:
-  - name: admin # identifier for this port mapping
-    port: 83    # port to map to inside the container
-    bind: 80    # port to bind the reverse proxy to (for the world)
-  - name: http-api # identifier for this port mapping
-    port: 86    # port to map to inside the container
-    bind: 8086  # port to bind the reverse proxy to (for the world)
-  - name: protobuf # identifier for this port mapping
-    port: 99    # port to map to inside the container
-    bind: 8099  # port to bind the reverse proxy to (for the world)
-    proto: tcp
-  - name: raft  # identifier for this port mapping
-    port: 90    # port to map to inside the container
-    bind: 8090  # port to bind the reverse proxy to (for the world)
-    proto: tcp
+- name: admin
+  port: 83
+  bind: 80
+  health_check:
+    type: http
+    path: /
+- name: http-api
+  port: 86
+  bind: 8086
+- name: protobuf
+  port: 99
+  bind: 8099
+  proto: tcp
+- name: raft
+  port: 90
+  bind: 8090
+  proto: tcp
