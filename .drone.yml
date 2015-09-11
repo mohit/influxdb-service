@@ -1,4 +1,4 @@
-image: google/debian:wheezy
+image: bradrydzewski/base
 notify:
   email:
     recipients:
@@ -12,10 +12,10 @@ publish:
     registry_login: true
     tags:
     - $(git rev-parse --short HEAD)
-    - latest
+    #- latest
     username: $$docker_username
     when:
-      branch: master
+      branch: 0.9
 script:
 # no tests here
-- return 0
+  - echo "no tests here"
