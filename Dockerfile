@@ -17,4 +17,4 @@ RUN echo "influxdb riak hard nofile unlimited" >> /etc/security/limits.conf
 EXPOSE 83       86      88
 
 VOLUME ["/data"]
-CMD ["/usr/bin/influxdb", "--config=/opt/influxdb/shared/config.toml", "--pidfile=/tmp/influxdb.pid"]
+CMD ["/opt/influxdb/influxd", "--config=/opt/influxdb/shared/config.toml", "--pidfile=/tmp/influxdb.pid"]
