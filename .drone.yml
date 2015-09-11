@@ -12,10 +12,10 @@ publish:
     registry_login: true
     tags:
     - $(git rev-parse --short HEAD)
-    - latest
+    #- latest
     username: $$docker_username
     when:
-      branch: master
+      branch: 0.9
 script:
 # no tests here
   - echo "no tests here"
