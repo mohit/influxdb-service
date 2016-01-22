@@ -14,13 +14,14 @@ expose:
   health_check:
     type: http
     path: /
-- name: http
+- name: http-api
   port: 86
   bind: 8086
-  health_check:
-    type: http
-    path: /ping
-- name: meta
-  port: 88
-  bind: 8088
+- name: protobuf
+  port: 99
+  bind: 8099
+  proto: tcp
+- name: raft
+  port: 90
+  bind: 8090
   proto: tcp
