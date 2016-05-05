@@ -20,3 +20,9 @@ expose:
   health_check:
     type: http
     path: /ping
+- name: collectd
+  port: 2582
+  bind: 25820
+- name: graphite
+  port: 20
+  bind: 2003
