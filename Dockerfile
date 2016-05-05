@@ -1,20 +1,23 @@
-FROM google/debian:wheezy
+FROM google/debian:jessie
 
 RUN apt-get update && apt-get install -y wget
 
-ENV INFLUXDB_VERSION 0.8.8
+ENV INFLUXDB_VERSION 0.12.1-1
 RUN wget http://s3.amazonaws.com/influxdb/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
     dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && \
     rm -fr influxdb_${INFLUXDB_VERSION}_amd64.deb && \
     rm -rf /var/lib/apt/lists/*
 
-ADD config.toml /opt/influxdb/shared/config.toml
+ADD config.toml /etc/influxdb/influxdb.conf
+ADD collectd_types.db /usr/share/collectd/types.db
 
 RUN echo "influxdb soft nofile unlimited" >> /etc/security/limits.conf
 RUN echo "influxdb riak hard nofile unlimited" >> /etc/security/limits.conf
+# required for collectd UDP
+RUN echo "net.core.rmem_max=8388608" >> /etc/sysctl.conf
 
-# Admin http-api raft protobuf
-EXPOSE 8083 8086 8090 8099
+# admin http
+EXPOSE 83 86
 
-VOLUME ["/data"]
-CMD ["/usr/bin/influxdb", "--config=/opt/influxdb/shared/config.toml", "--pidfile=/tmp/influxdb.pid"]
+VOLUME ["/influxdb"]
+CMD ["influxd", "--config=/etc/influxdb/influxdb.conf", "--pidfile=/tmp/influxdb.pid"]
