@@ -71,10 +71,30 @@ join = ""
   max-row-limit = 10000
 
 [[graphite]]
-  enabled = false
+  enabled = true
+  bind-address = ":20"
+  protocol = "tcp"
+
+  templates = [
+
+  # diskspace
+  "*.diskspace .env.host.measurement.resource.measurement",
+
+  # cpu
+  "*.cpu .env.host.measurement.resource.measurement",
+
+  # iostat
+  "*.iostat .env.host.measurement.resource.measurement",
+
+  # default
+  ".env.host.measurement*"
+  ]
 
 [collectd]
-  enabled = false
+  enabled = true
+  bind-address = ":2582" # the bind address
+  database = "collectd" # Name of the database that will be written to
+  read-buffer = 0 # UDP read buffer size, 0 means to use OS default
 
 [opentsdb]
   enabled = false
