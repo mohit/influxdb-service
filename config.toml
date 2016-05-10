@@ -77,6 +77,9 @@ join = ""
 
   templates = [
 
+  # ecs diskspace plugin
+  "*.ecsdisk .env.host.measurement.resource.measurement",
+
   # diskspace
   "*.diskspace .env.host.measurement.resource.measurement",
 
