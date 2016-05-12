@@ -2,8 +2,8 @@ FROM google/debian:jessie
 
 RUN apt-get update && apt-get install -y wget
 
-ENV INFLUXDB_VERSION 0.12.1-1
-RUN wget http://s3.amazonaws.com/influxdb/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
+ENV INFLUXDB_VERSION 0.13.0
+RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
     dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && \
     rm -fr influxdb_${INFLUXDB_VERSION}_amd64.deb && \
     rm -rf /var/lib/apt/lists/*
