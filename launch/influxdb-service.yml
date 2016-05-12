@@ -1,10 +1,28 @@
 run:
   type: docker
 env:
-  - PRE_CREATE_DB
+- PRE_CREATE_DB
 resources:
-  cpu: 2
-  max_mem: 7
+  cpu: 4
 volumes:
-  - source: /influx-data
-    target: /data
+- source: /influxdb
+  target: /influxdb
+expose:
+- name: admin
+  port: 83
+  bind: 80
+  health_check:
+    type: http
+    path: /
+- name: http
+  port: 86
+  bind: 8086
+  health_check:
+    type: http
+    path: /ping
+- name: collectd
+  port: 2582
+  bind: 25820
+- name: graphite
+  port: 20
+  bind: 2003
