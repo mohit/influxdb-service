@@ -78,7 +78,7 @@ join = ""
   templates = [
 
   # ecs container stats
-  "*.*.*.*.*.*.docker .env.host.container_env.container_app.task.measurement*",
+  "*.*.*.*.*.*.docker env.host..container_env.container_app.task.measurement*",
 
   # ecs diskspace plugin
   "*.ecsdisk .env.host.measurement.resource.measurement",
