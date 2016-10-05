@@ -1,9 +1,15 @@
-image: google/debian:wheezy
+env:
+- REPORT_CARD_GITHUB_STATUS_TOKEN=$$report_card_github_status_token
+- REPORT_CARD_GITHUB_REPO_TOKEN=$$report_card_github_repo_token
+image: bradrydzewski/base
 notify:
   email:
     recipients:
     - drone@clever.com
 publish:
+  catapult:
+    url: $$catapult_url
+    application: "influxdb-service"
   docker:
     docker_host: $$docker_server
     email: $$docker_email
@@ -12,10 +18,9 @@ publish:
     registry_login: true
     tags:
     - $(git rev-parse --short HEAD)
-    - latest
+    #- latest
     username: $$docker_username
     when:
       branch: master
 script:
-# no tests here
-- return 0
+- sudo pip install -q git+https://$REPORT_CARD_GITHUB_REPO_TOKEN@github.com/Clever/report-card.git; GITHUB_API_TOKEN=$REPORT_CARD_GITHUB_STATUS_TOKEN report-card --publish || true
